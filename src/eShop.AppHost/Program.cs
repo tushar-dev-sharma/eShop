@@ -6,7 +6,12 @@ var builder = DistributedApplication.CreateBuilder(args);
 builder.AddForwardedHeaders();
 
 var redis = builder.AddRedis("redis");
-var rabbitMq = builder.AddRabbitMQ("eventbus");
+
+var username = builder.AddParameter("rabbitmq-username", secret: true);
+var password = builder.AddParameter("rabbitmq-password", secret: true);
+var rabbitMq = builder.AddRabbitMQ("eventbus", userName:username, password:password)
+    .WithManagementPlugin();
+
 var postgres = builder.AddPostgres("postgres")
     .WithPgAdmin()
     .WithImage("ankane/pgvector")
