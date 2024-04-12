@@ -8,6 +8,7 @@ builder.AddForwardedHeaders();
 var redis = builder.AddRedis("redis");
 var rabbitMq = builder.AddRabbitMQ("eventbus");
 var postgres = builder.AddPostgres("postgres")
+    .WithPgAdmin()
     .WithImage("ankane/pgvector")
     .WithImageTag("latest");
 
